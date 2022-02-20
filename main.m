@@ -51,13 +51,67 @@ plot(class_c_x, class_c_y, 'b-', 'LineWidth', 2);
 plot(class_d_x, class_d_y, 'r-', 'LineWidth', 2);
 plot(class_e_x, class_e_y, 'black-', 'LineWidth', 2);
 
+% MED multi classifier
+num_points = 500;
+max_data = 5 + max([class_c.Data class_d.Data class_e.Data], [], 2);
+min_data = -5 + min([class_c.Data class_d.Data class_e.Data], [], 2);
+x1 = linspace(min_data(1), max_data(1), num_points);
+x2 = linspace(min_data(2), max_data(2), num_points);
+[A,B] = meshgrid(x1,x2);
+c=cat(2,A',B');
+x=reshape(c,[],2)';
+
+dist_c = vecnorm(x - class_c.Mean); 
+dist_d = vecnorm(x - class_d.Mean); 
+dist_e = vecnorm(x - class_e.Mean); 
+
+[~, min_I] = min([dist_c; dist_d; dist_e]);
+test = reshape(min_I, size(A));
+
+I = find(min_I == 3); 
+scatter(x(1, I), x(2, I), 'black', 'filled', 'MarkerFaceAlpha',.01,'MarkerEdgeAlpha',.01);
+[~, min_I] = min([dist_c; dist_d; dist_e]);
+I = find(min_I == 2); 
+scatter(x(1, I), x(2, I), 'r', 'filled', 'MarkerFaceAlpha',.01,'MarkerEdgeAlpha',.01);
+[min_val, min_I] = min([dist_c; dist_d; dist_e]);
+I = find(min_I == 1); 
+scatter(x(1, I), x(2, I), 'b', 'filled', 'MarkerFaceAlpha',.01,'MarkerEdgeAlpha',.01);
+
+
+% mid = (class_c.Mean + class_d.Mean)/2;
+% normal = class_d.Mean - class_c.Mean;
+% normal = [-normal(2); normal(1)];
+% normal = normal./norm(normal);
+% p1 = mid + l*normal;
+% % p2 = mid - l*normal;
+% line([p1(1), mid(1)], [p1(2), mid(2)], 'color','k','LineWidth',2)
+% 
+% mid = (class_c.Mean + class_e.Mean)/2;
+% normal = class_e.Mean - class_c.Mean;
+% normal = [-normal(2); normal(1)];
+% normal = normal./norm(normal);
+% p1 = mid + l*normal;
+% % p2 = mid - l*normal;
+% line([p1(1), mid(1)], [p1(2), mid(2)], 'color','k','LineWidth',2)
+% 
+% mid = (class_d.Mean + class_e.Mean)/2;
+% normal = class_e.Mean - class_d.Mean;
+% normal = [-normal(2); normal(1)];
+% normal = normal./norm(normal);
+% p1 = mid + l*normal;
+% p2 = mid - l*normal;
+% line([p1(1), mid(1)], [p1(2), mid(2)], 'color','k','LineWidth',2)
+% 
+
 xlabel('x_1');
 ylabel('x_2');
-legend('Class A', 'Class B', 'Class C');
+legend('Class C', 'Class D', 'Class E');
 saveas(gcf, "img/class_c_d_e.png");
 hold off;
 
 % Part 3: Classifiers
+
+
 
 
 
