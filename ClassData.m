@@ -4,6 +4,7 @@ classdef ClassData
         Mean;
         Covariance;
         Data;
+        Range;
     end
     
     methods
@@ -19,8 +20,12 @@ classdef ClassData
             Z2 = sqrt(-2*log(X(:, 1))).*sin(2*pi*X(:, 2));
             X = [Z1 Z2];
 
-            obj.Data = [X*chol(covariance)]' + mean;
+            obj.Data = (X*chol(covariance))' + mean;
+            
+            obj.Range = [max(obj.Data, [], 2) min(obj.Data, [], 2)];
         end
+        
+        
     end
        
      methods (Static)
@@ -55,7 +60,26 @@ classdef ClassData
             angles = atan2(y2 - y1, x2 - x1);
             x = (x1 + x2) / 2 + X * cos(angles) - Y * sin(angles);
             y = (y1 + y2) / 2 + X * sin(angles) + Y * cos(angles);
-            end
+         end
+            
+         function [x1, x2, classification] = MED(classes)
+            % Generate grid from range
+            num_points = 500;
+            max_data = max([classes.Range], [], 2);
+            min_data = min([classes.Range], [], 2);
+            x1 = linspace(min_data(1), max_data(1), num_points);
+            x2 = linspace(min_data(2), max_data(2), num_points);
+            [A,B] = meshgrid(x1,x2);
+            c=cat(2,A',B');
+            x=reshape(c,[],2)';
+            % Compute distance & reshape
+            dist = arrayfun(@(z) vecnorm(x-z.Mean), classes, ...
+                'UniformOutput', false);
+            dist = vertcat(dist{:});
+            % Classify and return
+            [~, classification] = min(dist);
+            classification = reshape(classification, size(A))';
+         end
      end
 
 end
