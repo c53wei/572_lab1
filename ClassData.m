@@ -62,7 +62,7 @@ classdef ClassData
             y = (y1 + y2) / 2 + X * sin(angles) + Y * cos(angles);
          end
             
-         function [x1, x2, classification] = MED(classes)
+         function [x1, x2, classification] = Classify(classes, type)
             % Generate grid from range
             num_points = 500;
             max_data = max([classes.Range], [], 2);
@@ -73,11 +73,29 @@ classdef ClassData
             c=cat(2,A',B');
             x=reshape(c,[],2)';
             % Compute distance & reshape
-            dist = arrayfun(@(z) vecnorm(x-z.Mean), classes, ...
-                'UniformOutput', false);
-            dist = vertcat(dist{:});
-            % Classify and return
-            [~, classification] = min(dist);
+            switch type
+                case 'MED'
+                    dist = arrayfun(@(z) vecnorm(x-z.Mean), classes, ...
+                    'UniformOutput', false);
+                    dist = vertcat(dist{:});
+                    % Classify and return
+                    [~, classification] = min(dist);
+                
+                case 'MAP'
+                    total_n = sum([classes.N]);
+                    % Calculate P(x|A)P(A)
+                    prob = arrayfun(@(z) (z.N/total_n)*Gauss2d(x, ...
+                        z.Mean, z.Covariance), classes, 'UniformOutput', false);
+%                     prob = cellfun(@(x) reshape(x,1,[]), prob, 'un', 0);
+                    prob = vertcat(prob{:});
+                    % Classify and return
+                    [~, classification] = max(prob);
+                    
+                otherwise
+                    disp(strcat('No implementation of', type, 'classifer'));
+                    return;
+            end
+            
             classification = reshape(classification, size(A))';
          end
      end
