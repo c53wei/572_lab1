@@ -4,6 +4,7 @@ class_a = ClassData(200, [5 10]', [8 0; 0 4]);
 class_b = ClassData(200, [10, 15]', [8 0; 0 4]);
 [class_b_x, class_b_y] = class_b.drawEllipse([10, 15]', [8 0; 0 4]);
 
+% Class A & Class B
 figure;
 hold on;
 
@@ -12,11 +13,11 @@ plot(class_a_x, class_a_y, 'b-', 'LineWidth', 2);
 plot(class_b_x, class_b_y, 'r-', 'LineWidth', 2);
 
 % Minimum Euclidean Distance
-[x1, x2, classification] = ClassData.Classify([class_a class_b], 'MED');
+[x1, x2, classification] = ClassData.Boundary([class_a class_b], 'MED');
 contour(x1, x2, classification, 'k');
 
 % Maximum a Posteriori 
-[x1, x2, classification] = ClassData.Classify([class_a class_b], 'MAP');
+[x1, x2, classification] = ClassData.Boundary([class_a class_b], 'MAP');
 contour(x1, x2, classification, 'k--');
 
 scatter(class_a.Data(1, :), class_a.Data(2, :), 'b', 'filled');
@@ -35,21 +36,20 @@ class_d = ClassData(200, [15 10]', [8 0; 0 8]);
 class_e = ClassData(150, [10 5]', [10 -5; -5 20]);
 [class_e_x, class_e_y] = class_e.drawEllipse([10 5]', [10 -5; -5 20]);
 
-
+% Class C, Class D, & Class E
 figure;
 hold on; 
-
 
 plot(class_c_x, class_c_y, 'b-', 'LineWidth', 2);
 plot(class_d_x, class_d_y, 'r-', 'LineWidth', 2);
 plot(class_e_x, class_e_y, 'k-', 'LineWidth', 2);
 
 % Minimum Euclidean Distance
-[x1, x2, classification] = ClassData.Classify([class_c class_d class_e], 'MED');
+[x1, x2, classification] = ClassData.Boundary([class_c class_d class_e], 'MED');
 contour(x1, x2, classification, 'k');
 
 % Maximum a Posteriori
-[x1, x2, classification] = ClassData.Classify([class_c class_d class_e], 'MAP');
+[x1, x2, classification] = ClassData.Boundary([class_c class_d class_e], 'MAP');
 contour(x1, x2, classification, 'k--');
 
 scatter(class_c.Data(1, :), class_c.Data(2, :), 'b', 'filled');
