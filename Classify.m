@@ -7,7 +7,16 @@ function classification = Classify(train, test, type)
             dist = vertcat(dist{:});
             % Classify and return
             [~, classification] = min(dist);
+            
+        case 'MICD'
+            dist = arrayfun(@(z) ComputeGED(test, z.Mean, z.Covariance), ...
+                train, 'UniformOutput', false);
+           
+            dist = vertcat(dist{:});
+            % Classify and return
+            [~, classification] = min(dist);
 
+        
         case 'MAP'
             total_n = sum([train.N]);
             % Calculate P(x|A)P(A)
@@ -22,3 +31,8 @@ function classification = Classify(train, test, type)
             return;
     end
 end
+
+
+
+
+

@@ -57,10 +57,8 @@ hold off;
 
 % Error Analysis
 expected1 = horzcat(repmat([1], 1, class_a.N), repmat([2], 1, class_b.N))';
-expected1 = char(expected1 + 64);
 % Get MED classification results
 test_med1 = Classify([class_a class_b], horzcat(class_a.Data, class_b.Data), 'MED')';
-test_med1 = char(test_med1 + 64);
 C = confusionmat(expected1, test_med1);
 error = (sum(C, 'all') - trace(C))/sum(C, 'all') * 100;
 confusionchart(C);
@@ -68,7 +66,6 @@ title(sprintf('%s %s','MED–Error: ', num2str(error), '%'));
 saveas(gcf, "img/class_a_b_med_confusion.png");
 % Get MAP classification results
 test_map1 = Classify([class_a class_b], horzcat(class_a.Data, class_b.Data), 'MAP')';
-test_map1 = char(test_map1 + 64);
 C = confusionmat(expected1, test_map1);
 error = (sum(C, 'all') - trace(C))/sum(C, 'all') * 100;
 confusionchart(C);
@@ -151,11 +148,9 @@ hold off;
 % Error Analysis
 expected2 = horzcat(repmat([1], 1, class_c.N), ...
     repmat([2], 1, class_d.N), repmat([3], 1, class_e.N))';
-expected2 = char(expected2 + 64);
 % Get MED classification results
 test_med2 = Classify([class_c class_d class_e], ...
     horzcat(class_c.Data, class_d.Data, class_e.Data), 'MED')';
-test_med2 = char(test_med2 + 64);
 C = confusionmat(expected2, test_med2);
 error = (sum(C, 'all') - trace(C))/sum(C, 'all') * 100;
 confusionchart(C);
@@ -164,7 +159,6 @@ saveas(gcf, "img/class_c_d_e_med_confusion.png");
 % Get MAP classification results
 test_map2 = Classify([class_c class_d class_e], ...
     horzcat(class_c.Data, class_d.Data, class_e.Data), 'MAP')';
-test_map2 = char(test_map2 + 64);
 C = confusionmat(expected2, test_map2);
 error = (sum(C, 'all') - trace(C))/sum(C, 'all') * 100;
 confusionchart(C);
