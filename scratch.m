@@ -1,5 +1,5 @@
 classes = [class_c class_d class_e];
-num_points = 100;
+num_points = 500;
 max_data = max([classes.Range], [], 2);
 min_data = min([classes.Range], [], 2);
 x1 = linspace(min_data(1), max_data(1), num_points);
