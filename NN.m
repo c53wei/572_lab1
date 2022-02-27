@@ -1,3 +1,4 @@
+
 function[ dist ] = NN( k, class_a, class_b, X, Y )
     dist = zeros(size(X, 1), size(Y, 2));
     for i = 1:size(X, 1)
@@ -23,4 +24,5 @@ function [closest] = get_closest(point, samples, k)
     closest_mean = mean(distanceMatrix, 1);
     closest = sqrt((point - closest_mean) * (point-closest_mean)'); %take the distance to the closest mean.
 end
+
 
