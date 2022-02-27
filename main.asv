@@ -214,9 +214,12 @@ for i=1:size(X2, 1)
 end
 
 figure
-map = [0.68 0.85 0.9 %b
-    1 0.75 0.8 %r
-    0.82 0.94 0.75]; %g
+map = [0.3 0 0.3
+    0 0 0.4
+    0 0 0.5
+    0 0 0.6
+    0 0 0.8
+    0 0 1.0];
 colormap(map)
 contourf(X2,Y2,nn2, 'Color', 'black'); hold on
 scatter(class_c1(:,1), class_c1(:,2), 'b', 'filled'); hold on
@@ -252,10 +255,6 @@ for i=1:size(X2, 1)
 end
 
 figure
-map = [0.68 0.85 0.9 %b
-    1 0.75 0.8 %r
-    0.82 0.94 0.75]; %g
-colormap(map)
 contourf(X2,Y2,knn5_2, 'Color', 'black'); hold on
 scatter(class_c1(:,1), class_c1(:,2), 'b', 'filled'); hold on
 scatter(class_d1(:,1), class_d1(:,2), 'r', 'filled'); hold on
