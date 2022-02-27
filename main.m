@@ -56,34 +56,25 @@ hold off;
 
 % Nearest Neighbour
 nn = knn(class_a1,class_b1,1,X1,Y1);
-figure
-contour(X1,Y1,nn, [0, 0], 'Color', 'green', 'LineWidth', 2); hold on
-scatter(class_a1(:,1), class_a1(:,2), 'b', 'filled'); hold on
-scatter(class_b1(:,1), class_b1(:,2), 'r', 'filled');
-axis equal;
 
-title('Nearest Neighbours');
-subtitle('Two Class Instance');
-xlabel('x_1');
-ylabel('x_2');
 
-saveas(gcf, "img/class_a_b_nn.png");
-hold off
 
 % k-Nearest Neighbours
 knn5 = knn(class_a1,class_b1,5,X1,Y1);
 figure
-contour(X1,Y1,knn5, [0, 0], 'Color', 'green', 'LineWidth', 2); hold on
+contour(X1,Y1,nn, [0, 0], 'Color', 'green', 'LineWidth', 2); hold on
+contour(X1,Y1,knn5, [0, 0], 'Color', 'magenta', 'LineWidth', 2); hold on
 scatter(class_a1(:,1), class_a1(:,2), 'b', 'filled'); hold on
 scatter(class_b1(:,1), class_b1(:,2), 'r', 'filled');
 axis equal;
 
-title('K Nearest Neighbours (k=5)');
+title('NN and kNN (k=5)');
 subtitle('Two Class Instance');
+legend('NN','5NN','Class A','Class B');
 xlabel('x_1');
 ylabel('x_2');
 
-saveas(gcf, "img/class_a_b_knn.png");
+saveas(gcf, "img/class_a_b_nn_knn.png");
 hold off
 
 % Error Analysis
@@ -218,24 +209,6 @@ for i=1:size(X2, 1)
     end
 end
 
-figure
-map = [0.68 0.85 0.9 %b
-        1 0.75 0.8 %r
-    0.82 0.94 0.75]; %g
-colormap(map)
-contourf(X2,Y2,nn2, 'Color', 'black'); hold on
-scatter(class_c1(:,1), class_c1(:,2), 'b', 'filled'); hold on
-scatter(class_d1(:,1), class_d1(:,2), 'r', 'filled'); hold on
-scatter(class_e1(:,1), class_e1(:,2), 'g', 'filled');
-axis equal;
-
-title('Nearest Neighbours');
-subtitle('Three Class Instance');
-xlabel('x_1');
-ylabel('x_2');
-
-saveas(gcf, "img/class_c_d_e_nn.png");
-hold off
 
 % k-Nearest Neighbours
 knn_cd = knn(class_c1,class_d1,5,X2,Y2);
@@ -258,22 +231,24 @@ for i=1:size(X2, 1)
 end
 
 figure
-map = [0.68 0.85 0.9 %b
-    1 0.75 0.8 %r
-    0.82 0.94 0.75]; %g
-colormap(map)
-contourf(X2,Y2,knn5_2, 'Color', 'black'); hold on
+% map = [0.68 0.85 0.9 %b
+%     1 0.75 0.8 %r
+%     0.82 0.94 0.75]; %g
+% colormap(map)
+contour(X2,Y2,nn2, 'Color', 'magenta'); hold on
+contour(X2,Y2,knn5_2, 'Color', 'cyan'); hold on
 scatter(class_c1(:,1), class_c1(:,2), 'b', 'filled'); hold on
 scatter(class_d1(:,1), class_d1(:,2), 'r', 'filled'); hold on
 scatter(class_e1(:,1), class_e1(:,2), 'g', 'filled');
 axis equal;
 
-title('K Nearest Neighbours (k=5)');
+legend('NN', '5NN', 'Class C', 'Class D', 'Class E');
+title('NN and kNN (k=5)');
 subtitle('Three Class Instance');
 xlabel('x_1');
 ylabel('x_2');
 
-saveas(gcf, "img/class_c_d_e_knn.png");
+saveas(gcf, "img/class_c_d_e_nn_knn.png");
 hold off
 
 % Error Analysis
