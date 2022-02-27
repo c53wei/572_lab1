@@ -11,7 +11,7 @@ class_b = ClassData(200, [10, 15]', [8 0; 0 4]);
 
 figure;
 hold on;
-
+axis equal;
 % Unit contour
 plot(class_a_x, class_a_y, 'b-', 'LineWidth', 2);	
 plot(class_b_x, class_b_y, 'r-', 'LineWidth', 2);
@@ -71,6 +71,7 @@ class_e = ClassData(150, [10 5]', [10 -5; -5 20]);
 
 figure;
 hold on; 
+axis equal;
 
 plot(class_c_x, class_c_y, 'b-', 'LineWidth', 2);
 plot(class_d_x, class_d_y, 'r-', 'LineWidth', 2);
