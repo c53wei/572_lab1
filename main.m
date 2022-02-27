@@ -110,12 +110,14 @@ saveas(gcf, "img/class_a_b_map_confusion.png");
 % Get NN error analysis
 [confusionmat_nn1,p_err_nn1] = nn_err_analysis(class_a1, class_b1);
 confusionchart(confusionmat_nn1);
+disp(p_err_nn1);
 title(sprintf('%s %s','NN–Error: ', num2str(p_err_nn1*100), '%'));
 saveas(gcf, "img/class_a_b_nn_confusion.png");
 
 % Get kNN error analysis
 [confusionmat_knn1,p_err_knn1] = nn_err_analysis(class_a1, class_b1);
 confusionchart(confusionmat_knn1);
+disp(p_err_knn1);
 title(sprintf('%s %s','kNN–Error (k=5): ', num2str(p_err_knn1*100), '%'));
 saveas(gcf, "img/class_a_b_knn_confusion.png");
 
@@ -218,7 +220,7 @@ end
 
 figure
 map = [0.68 0.85 0.9 %b
-    1 0.75 0.8 %r
+        1 0.75 0.8 %r
     0.82 0.94 0.75]; %g
 colormap(map)
 contourf(X2,Y2,nn2, 'Color', 'black'); hold on
@@ -301,12 +303,14 @@ saveas(gcf, "img/class_c_d_e_map_confusion.png");
 % Get NN error analysis
 [confusionmat_nn2,p_err_nn2] = nn_err_analysis(class_c1, class_d1, class_e1);
 confusionchart(confusionmat_nn2);
+disp(p_err_nn2);
 title(sprintf('%s %s','NN–Error: ', num2str(p_err_nn2*100), '%'));
 saveas(gcf, "img/class_c_d_e_nn_confusion.png");
 
 % Get KNN error analysis
 [confusionmat_knn2,p_err_knn2] = knn_err_analysis(class_c1, class_d1, class_e1);
 confusionchart(confusionmat_knn2);
+disp(p_err_knn2);
 title(sprintf('%s %s','KNN–Error: ', num2str(p_err_knn2*100), '%'));
 saveas(gcf, "img/class_c_d_e_knn_confusion.png");
 
