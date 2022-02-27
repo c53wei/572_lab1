@@ -60,6 +60,12 @@ figure
 contour(X1,Y1,nn, [0, 0], 'Color', 'green', 'LineWidth', 2); hold on
 scatter(class_a1(:,1), class_a1(:,2), 'b', 'filled'); hold on
 scatter(class_b1(:,1), class_b1(:,2), 'r', 'filled');
+
+title('Nearest Neighbours');
+subtitle('Two Class Instance');
+xlabel('x_1');
+ylabel('x_2');
+
 saveas(gcf, "img/class_a_b_nn.png");
 hold off
 
@@ -69,6 +75,12 @@ figure
 contour(X1,Y1,knn5, [0, 0], 'Color', 'green', 'LineWidth', 2); hold on
 scatter(class_a1(:,1), class_a1(:,2), 'b', 'filled'); hold on
 scatter(class_b1(:,1), class_b1(:,2), 'r', 'filled');
+
+title('K Nearest Neighbours (k=5)');
+subtitle('Two Class Instance');
+xlabel('x_1');
+ylabel('x_2');
+
 saveas(gcf, "img/class_a_b_knn.png");
 hold off
 
@@ -95,18 +107,14 @@ saveas(gcf, "img/class_a_b_map_confusion.png");
 
 % Get NN error analysis
 [confusionmat_nn1,p_err_nn1] = nn_err_analysis(class_a1, class_b1);
-disp(confusionmat_nn1);
 confusionchart(confusionmat_nn1);
 title(sprintf('%s %s','NN–Error: ', num2str(p_err_nn1*100), '%'));
-disp(p_err_nn1);
 saveas(gcf, "img/class_a_b_nn_confusion.png");
 
 % Get kNN error analysis
 [confusionmat_knn1,p_err_knn1] = nn_err_analysis(class_a1, class_b1);
-disp(confusionmat_knn1);
 confusionchart(confusionmat_knn1);
 title(sprintf('%s %s','kNN–Error (k=5): ', num2str(p_err_knn1*100), '%'));
-disp(p_err_knn1);
 saveas(gcf, "img/class_a_b_knn_confusion.png");
 
 
@@ -210,6 +218,12 @@ contourf(X2,Y2,nn2, 'Color', 'black'); hold on
 scatter(class_c1(:,1), class_c1(:,2), 'b', 'filled'); hold on
 scatter(class_d1(:,1), class_d1(:,2), 'r', 'filled'); hold on
 scatter(class_e1(:,1), class_e1(:,2), 'g', 'filled');
+
+title('Nearest Neighbours');
+subtitle('Three Class Instance');
+xlabel('x_1');
+ylabel('x_2');
+
 saveas(gcf, "img/class_c_d_e_nn.png");
 hold off
 
@@ -238,6 +252,12 @@ contourf(X2,Y2,knn5_2, 'Color', 'black'); hold on
 scatter(class_c1(:,1), class_c1(:,2), 'b', 'filled'); hold on
 scatter(class_d1(:,1), class_d1(:,2), 'r', 'filled'); hold on
 scatter(class_e1(:,1), class_e1(:,2), 'g', 'filled');
+
+title('K Nearest Neighbours (k=5)');
+subtitle('Three Class Instance');
+xlabel('x_1');
+ylabel('x_2');
+
 saveas(gcf, "img/class_c_d_e_knn.png");
 hold off
 
@@ -264,3 +284,16 @@ error = (sum(C, 'all') - trace(C))/sum(C, 'all') * 100;
 confusionchart(C);
 title(sprintf('%s %s','MAP–Error: ', num2str(error), '%'));
 saveas(gcf, "img/class_c_d_e_map_confusion.png");
+
+% Get NN error analysis
+[confusionmat_nn1,p_err_nn1] = nn_err_analysis(class_c1, class_d1, class_e1);
+confusionchart(confusionmat_nn1);
+title(sprintf('%s %s','NN–Error: ', num2str(p_err_nn1*100), '%'));
+saveas(gcf, "img/class_c_d_e_nn_confusion.png");
+
+% Get KNN error analysis
+[confusionmat_knn1,p_err_knn1] = knn_err_analysis(class_c1, class_d1, class_e1);
+confusionchart(confusionmat_knn1);
+title(sprintf('%s %s','KNN–Error: ', num2str(p_err_knn1*100), '%'));
+saveas(gcf, "img/class_c_d_e_knn_confusion.png");
+
