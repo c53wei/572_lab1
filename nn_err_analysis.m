@@ -1,4 +1,4 @@
-function [confusionmat,p_err] = nn_err_analysis(varargin)
+function [confusionmatrix,p_err] = nn_err_analysis(varargin)
 
     if nargin==2
         class_a = varargin{1};
@@ -19,7 +19,7 @@ function [confusionmat,p_err] = nn_err_analysis(varargin)
 
         p_err = (F_a+F_b)/(n_a+n_b);
 
-        confusionmat = [[T_a,F_b]; [F_a,T_b]];
+        confusionmatrix = [[T_a,F_b]; [F_a,T_b]];
 
     elseif nargin==3
         class_c = varargin{1};
@@ -54,61 +54,35 @@ function [confusionmat,p_err] = nn_err_analysis(varargin)
         NN_ec_class_e2 = knn_dist(class_e,class_c,1,class_e2);
 
         % correctly classified points
-        C = 0;
-        D = 0;
-        E = 0;
+        C_actual(1:length(class_c),1:1) = 1;
+        D_actual(1:length(class_d),1:1) = 2;
+        E_actual(1:length(class_e),1:1) = 3;
+        total_actual = vertcat(C_actual, D_actual, E_actual);
+        
+        C_predicted(1:length(class_c),1:1) = 0;
+        D_predicted(1:length(class_d),1:1) = 0;
+        E_predicted(1:length(class_e),1:1) = 0;
 
-        % incorrectly classifed points, X_Y - classified as class X when should
-        % be class Y
-        D_C = 0;
-        E_C = 0;
-
-        C_D = 0;
-        E_D = 0;
-
-        C_E = 0;
-        D_E = 0;
 
         for i = 1:length(class_c)
             predicted_class = which_class(NN_cd_class_c2(i), NN_de_class_c2(i), NN_ec_class_c2(i));
-            if predicted_class == 1
-                C = C + 1;
-            elseif predicted_class == 2
-                D_C = D_C + 1;
-            elseif predicted_class == 3
-                E_C = E_C + 1;
-            end
+            C_predicted(i)=predicted_class;
         end
 
         for i = 1:length(class_d)
             predicted_class = which_class(NN_cd_class_d2(i), NN_de_class_d2(i), NN_ec_class_d2(i));
-            if predicted_class == 1
-                C_D = C_D + 1;
-            elseif predicted_class == 2
-                D = D + 1;
-            elseif predicted_class == 3
-                E_D = E_D + 1;
-            end
+            D_predicted(i)=predicted_class;
         end
 
         for i = 1:length(class_e)
             predicted_class = which_class(NN_cd_class_e2(i), NN_de_class_e2(i), NN_ec_class_e2(i));
-            if predicted_class == 1
-                C_E = C_E + 1;
-            elseif predicted_class == 2
-                D_E = D_E + 1;
-            elseif predicted_class == 3
-                E = E + 1;
-            end
+            E_predicted(i)=predicted_class;
         end
 
-        p_err = 1 - ((C+D+E) / (n_c+n_d+n_e));
+        total_predicted = vertcat(C_predicted, D_predicted, E_predicted);
+        confusionmatrix = confusionmat(total_actual, total_predicted);
         
-        confusionmat = [
-            [C  D_C  E_C];
-            [C_D  D  E_D];
-            [C_E  D_E  E];
-        ];
+        p_err = 1 - ((confusionmatrix(1,1)+confusionmatrix(2,2)+confusionmatrix(3,3)) / (n_c+n_d+n_e));
 
         else
     end
