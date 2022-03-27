@@ -1,7 +1,7 @@
 clear
 clc
 
-data = matfile("lab_2_data/lab2_1.mat", "Writable", true);
+data = matfile("../lab_2_data/lab2_1.mat", "Writable", true);
 a = sort(data.a)';
 b = sort(data.b)';
 
@@ -22,7 +22,7 @@ ylabel("p(x)");
 xlim([0 10]);
 ylim([0 1]);
 legend("p(x)", "p($$\hat{x}$$)", "Interpreter", "Latex");
-saveas(gcf, "img/A_normal.png");
+saveas(gcf, "../img/A_normal.png");
 
 % Exponential Estimation
 pd_ml = fitdist(a, "exponential");
@@ -38,7 +38,7 @@ ylabel("p(x)");
 xlim([0 10]);
 ylim([0 1]);
 legend("p(x)", "p($$\hat{x}$$)", "Interpreter", "Latex");
-saveas(gcf, "img/A_exp.png");
+saveas(gcf, "../img/A_exp.png");
 
 % Uniform Estimation
 pd_ml = makedist('Uniform','lower', a(1),'upper', a(numel(a)));
@@ -54,7 +54,7 @@ ylabel("p(x)");
 xlim([0 10]);
 ylim([0 1]);
 legend("p(x)", "p($$\hat{x}$$)", "Interpreter", "Latex");
-saveas(gcf, "img/A_uniform.png");
+saveas(gcf, "../img/A_uniform.png");
 
 
 %% Class B
@@ -74,7 +74,7 @@ ylabel("p(x)");
 xlim([0 5]);
 ylim([0 1]);
 legend("p(x)", "p($$\hat{x}$$)", "Interpreter", "Latex");
-saveas(gcf, "img/B_normal.png")
+saveas(gcf, "../img/B_normal.png")
 
 % Exponential Estimation
 pd_ml = fitdist(b, "exponential");
@@ -90,7 +90,7 @@ ylabel("p(x)");
 xlim([0 5]);
 ylim([0 1]);
 legend("p(x)", "p($$\hat{x}$$)", "Interpreter", "Latex");
-saveas(gcf, "img/B_exp.png");
+saveas(gcf, "../img/B_exp.png");
 
 % Uniform Estimation
 pd_ml = makedist('Uniform','lower', b(1),'upper', b(numel(b)));
@@ -106,7 +106,7 @@ ylabel("p(x)");
 xlim([0 5]);
 ylim([0 1]);
 legend("p(x)", "p($$\hat{x}$$)", "Interpreter", "Latex");
-saveas(gcf, "img/B_uniform.png");
+saveas(gcf, "../img/B_uniform.png");
 
 
 
