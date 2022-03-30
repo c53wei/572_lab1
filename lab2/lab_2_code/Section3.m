@@ -54,20 +54,29 @@ cov = [400 0; 0 400];
 parzen_mean = [v/2 v/2];
 parzen_step = 1;
 
+% parzen_res = 1;
+% ksize = round(3*sqrt(v));
+% kernel = -ksize:parzen_res:ksize;
+% win = exp(-0.5.*kernel.*kernel/v);
+
 lowx = min([min(a(:,1)), min(b(:,1)), min(c(:,1))]) - 1;
 lowy = min([min(a(:,2)), min(b(:,2)), min(c(:,2))]) - 1;
 highx = max([max(a(:,1)), max(b(:,1)), max(c(:,1))]) + 1;
 highy = max([max(a(:,2)), max(b(:,2)), max(c(:,2))]) + 1;
 
-res = [parzen_step lowx lowy highx highy];
+parzen_res = [parzen_step lowx lowy highx highy];
 
 [XP, YP] = meshgrid(1:parzen_step:v);
 win = mvnpdf([XP(:) YP(:)], parzen_mean, cov);
 win = reshape(win, length(YP), length(XP));
 
-[prob_A, x_A, y_A] = parzen(a,res,win);
-[prob_B, x_B, y_B] = parzen(b,res,win);
-[prob_C, x_C, y_C] = parzen(c,res,win);
+[prob_A, x_A, y_A] = parzen(a,parzen_res,win);
+[prob_B, x_B, y_B] = parzen(b,parzen_res,win);
+[prob_C, x_C, y_C] = parzen(c,parzen_res,win);
+
+figure
+plot(x_A, prob_A); hold on
+plot(y_A, prob_A);
 
 [X1,Y1] = meshgrid(x_A, y_A);
 class_boundary_parzen = zeros(size(X1,1),size(Y1,2));
