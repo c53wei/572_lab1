@@ -8,8 +8,8 @@ function [classified_A, classified_B, conf_matrix] = MED(a, b, mean_a, mean_b)
     falseA = 0;
 
     for i=1:size(a,1)
-        dist = (a(i,:)-mean_a)*transpose(a(i,:)-mean_a) - (a(i,:)-mean_b)*transpose(a(i,:)-mean_b);
-        if dist < 0
+        is_A = MED_is_A(mean_a, mean_b, a(i,:));
+        if is_A
             trueA = trueA+1;
             classified_A = vertcat(classified_A, a(i,:));
         else
@@ -18,12 +18,12 @@ function [classified_A, classified_B, conf_matrix] = MED(a, b, mean_a, mean_b)
     end
 
     for i=1:size(b,1)
-        dist = (b(i,:)-mean_a)*transpose(b(i,:)-mean_a) - (b(i,:)-mean_b)*transpose(b(i,:)-mean_b);
-        if dist < 0
-            falseA = falseA+1;
-        else
+        is_A = MED_is_A(mean_a, mean_b, b(i,:));
+        if ~is_A
             trueB = trueB+1;
             classified_B = vertcat(classified_B, b(i,:));
+        else
+            falseA = falseA+1;
         end
     end
 

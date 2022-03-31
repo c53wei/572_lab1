@@ -1,4 +1,4 @@
-function [discriminant] = sequential_classifier(a,b,X,Y)
+function [discriminant, error] = sequential_classifier_lim(a,b,X,Y,jj_lim)
     orig_a = a;
     orig_b = b;
     j = 0;
@@ -40,6 +40,10 @@ function [discriminant] = sequential_classifier(a,b,X,Y)
             % stop
             break
         end
+
+        if j == jj_lim
+            break
+        end
     end
  
     discriminant = zeros(size(X));
@@ -56,5 +60,29 @@ function [discriminant] = sequential_classifier(a,b,X,Y)
             end
         end
     end
+    
+    for count = 1:size(orig_a,1)
+        point = orig_a(count,:);
+        for i = 1:j
+            correct_a = MED_is_A(prototypes_A(i,:), prototypes_B(i,:), point);
+            if correct_a
+                na = na + 1;
+                break
+            end
+        end
+    end
+    
+    for count = 1:size(orig_b,1)
+        point = orig_b(count,:);
+        for i = 1:j
+            bad_b = MED_is_A(prototypes_A(i,:), prototypes_B(i,:), point);
+            if ~bad_b
+                nb = nb + 1;
+                break
+            end
+        end
+    end
+    
+    error = 1 - ((na+nb)/400);
 end
 
