@@ -1,4 +1,4 @@
-function [G,error] = sequential(X,Y, j_lim, aData, bData)
+function [G,error] = sequential(X,Y, aData, bData, jLimit)
     a = aData;
     b = bData;
     naBCount = [];
@@ -78,21 +78,19 @@ function [G,error] = sequential(X,Y, j_lim, aData, bData)
         naBCount = cat(1, naBCount, naB);
         nbACount = cat(1, nbACount, nbA);
 
-        % 7.
+        % 7.if naB = 0 then remove those points from b that G classifies as B
         if naB == 0 
-            % then remove those points from b that G classifies as B
             bData = setxor(bData, correctB,'rows');
         end
         
-        % 8.
+        % 8. If nbA = 0 then remove those points from a that G classifies as A
         if nbA == 0 
-            % then remove those points from a (A_data) that G
-            % classifies as A (success_A) using 'set exclusive'
             aData = setxor(aData, correctA,'rows');
         end 
         
-        if size(aData,1)== 0 || size(bData, 1) == 0 || (j_lim ~= 0 && j == j_lim)
-            break
+        %9. If a and b still contain points, go back to step 2
+        if size(aData,1)== 0 || size(bData, 1) == 0 || (jLimit ~= 0 && j == jLimit) 
+            break %if no points left, or j limit reached, break the loop.
         end        
     end
     

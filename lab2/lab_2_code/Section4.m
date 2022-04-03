@@ -10,9 +10,9 @@ x_domain = min([a(:,1);b(:,1)])-1:step:max([a(:,1);b(:,1)])+1;
 y_range = min([a(:,2);b(:,2)])-1:step:max([a(:,2);b(:,2)])+1;
 [X, Y] = meshgrid(x_domain, y_range);
 
-[G1, err1] = sequential(X, Y, 0, a, b);
-[G2, err2] = sequential(X, Y, 0, a, b);
-[G3, err3] = sequential(X, Y, 0, a, b);
+[G1, err1] = sequential(X, Y, a, b, 0);
+[G2, err2] = sequential(X, Y, a, b, 0);
+[G3, err3] = sequential(X, Y, a, b, 0);
 
 figure(1);
 scatter(a(:,1), a(:,2), 'rx');
@@ -65,7 +65,7 @@ for j=1:5
     errorRates = [];
 
     for i=1:20 %learn a sequential classifier 20 times to calculate the following
-        [G, err] = sequential(X, Y, j, a, b);
+        [G, err] = sequential(X, Y, a, b, j);
         errorRates = cat(2,errorRates, err);
     end
     averageError = cat(1,averageError, [j mean(errorRates)]); %average error rate
