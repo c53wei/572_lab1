@@ -37,12 +37,13 @@ map = [0.82 0.94 0.75 %g
     ];
         
 colormap(map)
-contourf(X,Y, class_boundary_gaussian, 'Color','black');
-scatter(a(:,1), a(:,2), 'r', 'filled');
-scatter(b(:,1), b(:,2), 'g', 'filled'); 
-scatter(c(:,1), c(:,2), 'b', 'filled');
+contourf(X,Y, class_boundary_gaussian, 'Color','black', 'DisplayName', 'Classification');
+scatter(a(:,1), a(:,2), 'r', 'filled', 'DisplayName', 'Class A');
+scatter(b(:,1), b(:,2), 'g', 'filled', 'DisplayName', 'Class B'); 
+scatter(c(:,1), c(:,2), 'b', 'filled', 'DisplayName', 'Class C');
 hold off;
 title("ML Classification");
+legend('show');
 xlabel('x');
 ylabel('y');
 
@@ -86,12 +87,13 @@ map = [1 0.75 0.8 %r
     0.68 0.85 0.9 %b 
     ];
 colormap(map);
-contourf(X1,Y1, class_boundary_parzen, 'Color','black');
-scatter(a(:,1), a(:,2), 'r', 'filled');
-scatter(b(:,1), b(:,2), 'g', 'filled'); 
-scatter(c(:,1), c(:,2), 'b', 'filled');
+contourf(X1,Y1, class_boundary_parzen, 'Color','black', 'DisplayName', 'Classification');
+scatter(a(:,1), a(:,2), 'r', 'filled', 'DisplayName', 'Class A');
+scatter(b(:,1), b(:,2), 'g', 'filled', 'DisplayName', 'Class B'); 
+scatter(c(:,1), c(:,2), 'b', 'filled', 'DisplayName', 'Class C');
 hold off;
-title("ML Classification");
+title("ML Classification (Parzen)");
+legend('show');
 xlabel('x');
 ylabel('y');
 

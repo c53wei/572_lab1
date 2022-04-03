@@ -70,7 +70,7 @@ ylabel("p(x)");
 xlim([0 10]);
 ylim([0 1]);
 legend("p(x)", "p($$\hat{x}$$)", "Interpreter", "Latex");
-saveas(gcf, "img/A_parzen_01.png");
+saveas(gcf, "../img/A_parzen_01.png");
 
 % Parzen Estimation h = 0.4
 [x, parzen] = parzen_1d(a, 0.4);
@@ -85,7 +85,7 @@ ylabel("p(x)");
 xlim([0 10]);
 ylim([0 1]);
 legend("p(x)", "p($$\hat{x}$$)", "Interpreter", "Latex");
-saveas(gcf, "img/A_parzen_04.png");
+saveas(gcf, "../img/A_parzen_04.png");
 
 %% Class B
 
@@ -151,7 +151,7 @@ ylabel("p(x)");
 xlim([0 5]);
 ylim([0 1]);
 legend("p(x)", "p($$\hat{x}$$)", "Interpreter", "Latex");
-saveas(gcf, "img/B_parzen_01.png");
+saveas(gcf, "../img/B_parzen_01.png");
 
 % Parzen Estimation h = 0.4
 [x, parzen] = parzen_1d(b, 0.4);
@@ -166,7 +166,7 @@ ylabel("p(x)");
 xlim([0 5]);
 ylim([0 1]);
 legend("p(x)", "p($$\hat{x}$$)", "Interpreter", "Latex");
-saveas(gcf, "img/B_parzen_04.png");
+saveas(gcf, "../img/B_parzen_04.png");
 
 
 close("all");
