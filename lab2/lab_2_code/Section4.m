@@ -44,7 +44,7 @@ y_range = min([a(:,2);b(:,2)])-1:step:max([a(:,2);b(:,2)])+1;
 % scatter(a(:,1), a(:,2), 'r', 'filled');
 % scatter(b(:,1), b(:,2), 'b', 'filled'); 
 
-[G1, err1] = sequential_classifier_lim(a, b, X, Y, 4)
+[G1, err1] = sequential_classifier_lim(a, b, X, Y, 20)
 figure
 hold on
 map = [0.68 0.85 0.9 %b 
